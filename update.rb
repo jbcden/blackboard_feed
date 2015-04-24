@@ -5,8 +5,8 @@ require_relative './sql_generator'
 
 class ::TableMigrator
   DATABASES = {current: "current", yesterday: "yesterday", two_days_ago: "2_days_ago"}
-  FEED_PATH = ENV["FEED_PATH"]
 
+  FEED_PATH = ENV["FEED_PATH"]
   DATABASE_USER = ENV["DATABASE_USER"]
   DATABASE_PASS = ENV["DATABASE_PASS"]
 
