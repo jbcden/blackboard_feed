@@ -4,8 +4,8 @@ require 'sequel'
 require_relative './sql_generator'
 
 class ::TableMigrator
-  DATABASES = {:current: "current", yesterday: "yesterday", two_days_ago: "2_days_ago"}
-  FEED_FILES = "/home/jchae/feed/*"
+  DATABASES = {current: "current", yesterday: "yesterday", two_days_ago: "2_days_ago"}
+  FEED_PATH = ENV["FEED_PATH"]
 
   DATABASE_USER = ENV["DATABASE_USER"]
   DATABASE_PASS = ENV["DATABASE_PASS"]
@@ -87,10 +87,13 @@ class ::TableMigrator
   end
 
   def self.get_table_names
-    files = Dir[FEED_FILES]
-    files.delete("/home/jchae/feed/list")
+    files = Dir.entries(FEED_PATH) - entries_to_be_excluded_from_db
     files
+  end
+
+  def self.entries_to_be_excluded_from_db
+    [".", "..", "list"]
   end
 end
 
-::TableMigrator.insert_into("apples")
+# ::TableMigrator.insert_into("apples")
