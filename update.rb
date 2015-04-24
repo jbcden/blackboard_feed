@@ -42,8 +42,8 @@ class ::TableMigrator
     db = connect(db_name)
     table_names = get_table_names
 
-    tables = files.map {|f| File.basename(f, ".*")}
-    non_existant_tables = tables.reject { |file| db.table_exists?(File.basename(file)) }
+    tables = table_names.map {|f| File.basename(f, ".*")}
+    non_existant_tables = tables.reject { |file| db.table_exists?(file) }
 
     non_existant_tables.each do |table|
       create_string = SqlGenerator.generate_table_create_string(table)
@@ -96,4 +96,5 @@ class ::TableMigrator
   end
 end
 
+::TableMigrator.create_tables("apples")
 # ::TableMigrator.insert_into("apples")
