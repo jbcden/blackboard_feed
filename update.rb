@@ -96,5 +96,5 @@ class ::TableMigrator
   end
 end
 
-::TableMigrator.create_tables("apples")
+# ::TableMigrator.create_tables("apples")
 # ::TableMigrator.insert_into("apples")
