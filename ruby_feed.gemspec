@@ -4,15 +4,16 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ruby_feed/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ruby_feed"
+  spec.name          = "blackboard_feed"
   spec.version       = RubyFeed::VERSION
   spec.authors       = ["Jacob Chae"]
   spec.email         = ["jbcden@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "A feed file parser"
+  spec.description   = "This parses feed files for the Oberlin CIT office and loads them into a mysql db"
+  spec.homepage      = "https://github.com/jbcden/blackboard_feed"
   spec.required_ruby_version = ">=1.9.3"
+  spec.license = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables = ["feed_update", "feed_setup"]
