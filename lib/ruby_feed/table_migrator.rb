@@ -9,18 +9,6 @@ class ::TableMigrator
   DATABASE_USER = ENV["DATABASE_USER"]
   DATABASE_PASS = ENV["DATABASE_PASS"]
 
-  # def self.setup
-  #   create_current(DATABASES[:current])
-  #   create_current(DATABASES[:yesterday])
-  #   create_current(DATABASES[:two_days_ago])
-  # end
-
-  # def self.update
-  #   drop_and_recreate(DATABASES[:two_days_ago], DATABASES[:yesterday])
-  #   drop_and_recreate(DATABASES[:yesterday], DATABASES[:current])
-  #   create_current(DATABASES[:current])
-  # end
-
   def self.create_current(db_name)
     drop(db_name)
     create(db_name)
@@ -34,13 +22,11 @@ class ::TableMigrator
 
     table_names.each do |table|
       table_name = File.basename(table)
-      p "#{FEED_PATH}#{table}"
       table_file =  "#{FEED_PATH}#{table}"
       insert_string = Parser.parse_file(File.readlines(table_file).drop(1), table_name)
       next if insert_string.nil?
       insert_string.split(";").each do |s|
         next if s == " "
-        # p s
         db.run(s)
       end
     end
@@ -55,7 +41,6 @@ class ::TableMigrator
 
     non_existant_tables.each do |table|
       create_string = SqlGenerator.generate_table_create_string(table)
-      # puts create_string
       db.run(create_string)
     end
   end
@@ -109,6 +94,3 @@ class ::TableMigrator
     [".", "..", "list"]
   end
 end
-
-# ::TableMigrator.create_tables("apples")
-# ::TableMigrator.insert_into("apples")
